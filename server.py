@@ -18,7 +18,11 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
+    return """<!doctype html>
+        <html>
+        <h1>Hi! This is the home page.</h1>
+        <a href = "http://localhost:5000/hello">Click here</a>
+        </html>"""
 
 
 @app.route("/hello")
@@ -33,24 +37,45 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-        <form action="/greet">
+        <form action="/greet" method = "POST">
           What's your name? <input type="text" name="person">
-          <input type="submit" value="Submit">
+         
+
+        <p>
+          <label>How do you feel? Choose.</label>
+          <select id="feelings" name="feelings">
+                <option value = "awesome">awesome</option>
+                <option value = "terrific">terrific</option>
+                <option value = "fantastic">fantsatic</option>
+                <option value = "neato">neato</option>
+                <option value = "fantabulous">fantabulous</option>
+                <option value = "wowza">wowza</option>
+                <option value = "oh-so-not-meh">oh-so-not-meh</option>
+                <option value = "brilliant">brilliant</option>
+                <option value = "ducky">ducky</option>
+                <option value = "coolio">coolio</option>
+                <option value = "incredible">incredible</option>
+                <option value = "wonderful">wonderful</option>
+                <option value = "smashing">smashing</option>
+                <option value = "lovely">lovely</option>
+            </select>
+        </p>
+         <input type="submit" value="Submit">
         </form>
       </body>
     </html>
     """
 
 
-@app.route("/greet")
+@app.route("/greet", methods=['POST'])
 def greet_person():
     """Get user by name."""
 
-    player = request.args.get("person")
+    player = request.form.get("person")
 
-    compliment = choice(AWESOMENESS)
+    feelings = request.form.get("feelings")
 
-    y = x
+    # y = x """x var not defined"""
 
     return """
     <!doctype html>
@@ -62,7 +87,7 @@ def greet_person():
         Hi, {}! I think you're {}!
       </body>
     </html>
-    """.format(player, compliment)
+    """.format(player, feelings)
 
 
 if __name__ == "__main__":
